@@ -7,6 +7,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+// using Microsoft.Azure.Functions.Worker.Extensions.OpenApi;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks; // 비동기 작업을 위해 필요
 
@@ -45,7 +46,7 @@ namespace week3_homework
                 var requestData = JsonSerializer.Serialize(new
                 {
                     // 4는 가격이 비싸니 3.5로 설정한다.
-                    model = "gpt-3.5-turbo",
+                    model = _configuration["GPT_MODEL"] ?? string.Empty, // null 처리
                     messages = new[]
                     {
                         // role은 system, assistant, user 가능하다.
